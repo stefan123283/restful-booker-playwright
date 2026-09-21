@@ -1,9 +1,9 @@
-import {Page, Locator, expect} from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 
 export class HomePage {
 
     readonly page: Page;
-    readonly homeHeaderLink : Locator;
+    readonly homeHeaderLink: Locator;
     readonly roomsHeaderLink: Locator;
     readonly bookingHeaderLink: Locator;
     readonly amenitiesHeaderLink: Locator;
@@ -14,8 +14,8 @@ export class HomePage {
     readonly amenitiesSection: Locator;
     readonly locationSection: Locator;
     readonly contactSection: Locator;
-    readonly bookNowBannerButton : Locator;
-    readonly bookNowFirstRoomButton : Locator;
+    readonly bookNowBannerButton: Locator;
+    readonly bookNowFirstRoomButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -36,48 +36,39 @@ export class HomePage {
 
     async navigateToHomePageByURL() {
         await this.page.goto('/');
-        await expect(this.bookNowBannerButton).toBeVisible();
     }
 
-    async verifyLinkFunctionality(link: String) {
-        switch (link.toUpperCase()) {
-            case "ROOMS":
-                await this.roomsHeaderLink.click();
-                await expect (this.roomsSection).toBeInViewport();
-                break;
-            case "BOOKING":
-                await this.bookingHeaderLink.click();
-                await expect(this.bookingSection).toBeInViewport();
-                break;
-            case "AMENITIES":
-                await this.amenitiesHeaderLink.click();
-                await expect(this.amenitiesSection).toBeInViewport();
-                break;
-            case "LOCATION":
-                await this.locationHeaderLink.click();
-                await expect(this.locationSection).toBeInViewport();
-                break;
-            case "CONTACT":
-                await this.contactHeaderLink.click();
-                await expect(this.contactSection).toBeInViewport();
-                break;
-        }
+    async clickRoomsHeaderLink() {
+        await this.roomsHeaderLink.click();
     }
 
-    async verifyBookNowBannerButtonFunctionality(){
+    async clickBookingHeaderLink() {
+        await this.bookingHeaderLink.click();
+    }
+
+    async clickLocationHeaderLink() {
+        await this.locationHeaderLink.click();
+    }
+
+    async clickContactHeaderLink() {
+        await this.contactHeaderLink.click();
+    }
+
+    async clickAmenitiesHeaderLink() {
+        await this.amenitiesHeaderLink.click();
+    }
+
+    async clickBookNowBannerButton() {
         await this.bookNowBannerButton.click();
-        await expect(this.bookingSection).toBeInViewport();
     }
 
-    async navigateToBookingPageOfFirstRoom(){
+    async navigateToBookingPageOfFirstRoom() {
         await this.bookNowFirstRoomButton.focus();
         await this.bookNowFirstRoomButton.click();
-        await expect(this.page).toHaveURL(/\/reservation\/1/);
     }
 
-    async navigateToHomePageByHomeLink(){
+    async navigateToHomePageByHomeLink() {
         await this.homeHeaderLink.click();
-        await expect(this.bookNowBannerButton).toBeVisible();
     }
 
 }

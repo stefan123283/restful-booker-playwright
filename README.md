@@ -1,12 +1,16 @@
 # Restful Booker Playwright Test Automation Framework
 
-A test automation framework built with **Playwright** and **TypeScript** for testing the [Restful Booker](https://automationintesting.online) web application. The project uses the **Page Object Model (POM)** for UI automation and **GitHub Actions** for automated test execution in a CI environment.
+A test automation framework built with **Playwright** and **TypeScript** for testing the [Restful Booker](https://automationintesting.online) web application. The project uses the **Page Object Model (POM)** and **Data-Driven Testing (DDT)** for UI automation, with **GitHub Actions** for automated test execution in a CI environment.
 
 ## 🏗️ Architecture & Design Patterns
 
 This framework implements industry-standard patterns and best practices:
 
-- **Page Object Model (POM)**: Encapsulates page elements and interactions for maintainability.
+1. **Page Object Model (POM)**: 
+- Encapsulates page elements and interactions for maintainability.
+2. **Data-Driven Testing (DDT)**: 
+- Separates test data from test logic, allowing multiple test scenarios to be executed from external data files. 
+- Each data set represents an individual test scenario and includes a configurable ```run``` flag for controlled test execution.
 
 ## 🛠️ Tech Stack
 
@@ -18,34 +22,44 @@ This framework implements industry-standard patterns and best practices:
 
 ## 🧪 Test Coverage Summary
 
-### 🔍 UI Testing (7 scenarios)
+### 🔍 UI Testing
 - **Header**: Navigation functionality for all six header links.
-- **Banner**: Functionality of the **[Book Now]** button.
+- **Banner**: Functionality of the [Book Now] button.
+- **Rooms Availability**: Validation of check-in and check-out dates, default date values, valid and invalid date inputs, date combinations, and room availability based on the selected dates.
 
 ## 📁 Project Structure
 
-```
+```text
 restful-booker-playwright/
 │
 ├── .github/
 │   └── workflows/
-│       └── playwright.yml          # GitHub Actions workflow for automated test execution
+│       └── playwright.yml              # GitHub Actions workflow for automated test execution
 │
 ├── pages/
-│   └── HomePage.ts                 # Page Object containing Home Page locators and interactions
+│   └── HomePage.ts                     # Page Object containing Home Page locators and interactions
+│
+├── test-data/
+│   └── json/
+│       ├── bookingDates.json           # Test data for verifying rooms availability scenarios
+│       └── bookingInvalidInputs.json   # Test data for verifying invalid rooms availability scenarios
 │
 ├── tests/
 │   └── ui/
-│       ├── banner.spec.ts          # UI tests for the website banner
-│       └── header.spec.ts          # UI tests for the website header
+│       ├── availability.spec.ts        # UI tests for verifying rooms availability
+│       ├── banner.spec.ts              # UI tests for verifying the website banner
+│       └── header.spec.ts              # UI tests for verifying the website header
 │
-├── .gitignore                      # Specifies files/folders Git should not track
-├── LICENSE                         # Defines how others may use the project's source code
-├── package-lock.json               # Locks the exact versions of installed npm dependencies
-├── package.json                    # Project metadata, dependencies, and npm scripts
-├── playwright.config.ts            # Playwright test configuration
-├── README.md                       # Project documentation
-└── tsconfig.json                   # TypeScript compiler configuration
+├── utils/
+│   └── dateUtils.ts                    # Helper functions for dynamic date generation
+│
+├── .gitignore                          # Specifies files/folders Git should not track
+├── LICENSE                             # Defines how others may use the project's source code
+├── package-lock.json                   # Locks the exact versions of installed npm dependencies
+├── package.json                        # Project metadata, dependencies, and npm scripts
+├── playwright.config.ts                # Playwright test configuration
+├── README.md                           # Project documentation
+└── tsconfig.json                       # TypeScript compiler configuration
 ```
 
 ## 🚀 Getting Started
@@ -119,8 +133,10 @@ npx playwright show-report
 
 ## 🐞 Defect Tracking
 
-- Defects identified during test execution are documented in the **Issues** section of the GitHub repository.
-- Tests affected by defects are marked with Playwright's ```test.fixme()``` method, which prevents further execution after the call.
+1. Defects identified during test execution are documented in the **Issues** section of the GitHub repository.
+2. Tests affected by known defects are skipped to prevent CI builds from failing:
+- ```test.fixme()``` is used for individual tests that do not rely on external test data.
+- ```"run": false``` is used in test-data files to disable specific data-driven scenarios affected by known defects.
 
 ## ⚙️ Playwright Configuration
 

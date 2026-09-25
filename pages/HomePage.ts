@@ -16,6 +16,9 @@ export class HomePage {
     readonly contactSection: Locator;
     readonly bookNowBannerButton: Locator;
     readonly bookNowFirstRoomButton: Locator;
+    readonly checkInInput: Locator;
+    readonly checkOutInput: Locator;
+    readonly checkAvailabilityButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -32,43 +35,13 @@ export class HomePage {
         this.contactSection = page.locator("#contact");
         this.bookNowBannerButton = page.locator("//a[text()='Book Now']");
         this.bookNowFirstRoomButton = page.locator("(//a[text()='Book now'])[1]");
+        this.checkInInput = page.locator("//label[text()='Check In']//..//input");
+        this.checkOutInput = page.locator("//label[text()='Check Out']//..//input");
+        this.checkAvailabilityButton = page.locator("//button[text()='Check Availability']");
     }
 
-    async navigateToHomePageByURL() {
+    async navigateToHomePage() {
         await this.page.goto('/');
-    }
-
-    async clickRoomsHeaderLink() {
-        await this.roomsHeaderLink.click();
-    }
-
-    async clickBookingHeaderLink() {
-        await this.bookingHeaderLink.click();
-    }
-
-    async clickLocationHeaderLink() {
-        await this.locationHeaderLink.click();
-    }
-
-    async clickContactHeaderLink() {
-        await this.contactHeaderLink.click();
-    }
-
-    async clickAmenitiesHeaderLink() {
-        await this.amenitiesHeaderLink.click();
-    }
-
-    async clickBookNowBannerButton() {
-        await this.bookNowBannerButton.click();
-    }
-
-    async navigateToBookingPageOfFirstRoom() {
-        await this.bookNowFirstRoomButton.focus();
-        await this.bookNowFirstRoomButton.click();
-    }
-
-    async navigateToHomePageByHomeLink() {
-        await this.homeHeaderLink.click();
     }
 
 }

@@ -3,7 +3,7 @@ import { HomePage } from '../../pages/HomePage';
 
 test("Verify functionality of [Book Now] banner button", async ({ page }) => {
     const homePage = new HomePage(page);
-    await homePage.navigateToHomePageByURL();
-    await homePage.clickBookNowBannerButton();
+    await homePage.navigateToHomePage();
+    await homePage.bookNowBannerButton.click();
     await expect(homePage.bookingSection).toBeInViewport();
 });

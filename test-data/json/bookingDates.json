@@ -1,0 +1,30 @@
+[
+    {
+        "name": "custom Check In and Check Out",
+        "checkInDaysFromToday": 7,
+        "checkOutDaysFromToday": 10,
+        "expected": "visible",
+        "run": true
+    },
+    {
+        "name": "equal Check In and Check Out",
+        "checkInDaysFromToday": 0,
+        "checkOutDaysFromToday": 0,
+        "expected": "visible",
+        "run": true
+    },
+    {
+        "name": "Check In after Check Out",
+        "checkInDaysFromToday": 7,
+        "checkOutDaysFromToday": 5,
+        "expected": "invisible",
+        "run": false
+    },
+    {
+        "name": "Check In before today",
+        "checkInDaysFromToday": -5,
+        "checkOutDaysFromToday": 2,
+        "expected": "invisible",
+        "run": false
+    }
+]

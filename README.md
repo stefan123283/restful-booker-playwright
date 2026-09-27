@@ -1,6 +1,6 @@
 # Restful Booker Playwright Test Automation Framework
 
-A test automation framework built with **Playwright** and **TypeScript** for testing the [Restful Booker](https://automationintesting.online) web application. The project uses the **Page Object Model (POM)** and **Data-Driven Testing (DDT)** for UI automation, with **GitHub Actions** for automated test execution in a CI environment.
+A test automation framework built with **Playwright** and **TypeScript** for testing the [Restful Booker](https://automationintesting.online) web application. The project uses the **Page Object Model (POM)**, **fixtures** and **Data-Driven Testing (DDT)** for UI automation, with a unified test data reader supporting JSON, CSV, and Excel files. **GitHub Actions** is used for automated test execution in a CI environment.
 
 ## 🏗️ Architecture & Design Patterns
 
@@ -8,28 +8,33 @@ This framework implements industry-standard patterns and best practices:
 
 1. **Page Object Model (POM)**: 
 - Encapsulates page elements and interactions for maintainability.
-2. **Data-Driven Testing (DDT)**: 
+2. **Fixtures**:
+- Centralizes common test setup, including navigating to the Home page and creating the ```HomePage``` object before each test.
+3. **Data-Driven Testing (DDT)**: 
 - Separates test data from test logic, allowing multiple test scenarios to be executed from external data files. 
 - Each data set represents an individual test scenario and includes a configurable ```run``` flag for controlled test execution.
+- A unified data reader supports test data stored in **JSON**, **CSV**, and **Excel** formats.
 
 ## 🛠️ Tech Stack
 
-| **Component** | **Technology** | **Version** |
-|----------------------|------------|----------|
-| Test Automation      | Playwright | 1.63.0   |
-| Programming Language | TypeScript | 7.0.2    |
-| Runtime Environment  | Node.js    | 24.21.0  |
+| **Component** | **Technology** | **Version**   |
+|------------------------|------------|----------|
+| Test Automation        | Playwright |  1.63.0  |
+| Programming Language   | TypeScript |  7.0.2   |
+| Runtime Environment    | Node.js    |  24.21.0 |
+| CSV Data Parsing       | csv-parse  |  7.0.3   |
+| Excel Data Processing  | xlsx       |  0.18.5  |
 
 ## 🧪 Test Coverage Summary
 
 ### 🔍 UI Testing
 - **Header**: Navigation functionality for all six header links.
-- **Banner**: Functionality of the [Book Now] button.
+- **Banner**: Functionality of the [Book Now] button from the banner.
 - **Rooms Availability**: Validation of check-in and check-out dates, default date values, valid and invalid date inputs, date combinations, and room availability based on the selected dates.
 
 ## 📁 Project Structure
 
-```text
+```
 restful-booker-playwright/
 │
 ├── .github/
@@ -40,18 +45,23 @@ restful-booker-playwright/
 │   └── HomePage.ts                     # Page Object containing Home Page locators and interactions
 │
 ├── test-data/
-│   └── json/
-│       ├── bookingDates.json           # Test data for verifying rooms availability scenarios
-│       └── bookingInvalidInputs.json   # Test data for verifying invalid rooms availability scenarios
+│   ├── bookingDates.json               # Test data for verifying room availability scenarios
+│   └── bookingInvalidInputs.json       # Test data for verifying invalid room availability scenarios
 │
 ├── tests/
+│   ├── fixtures/
+│   │   └── test-fixtures.ts            # Custom Playwright fixtures for common test setup
+│   │
 │   └── ui/
-│       ├── availability.spec.ts        # UI tests for verifying rooms availability
+│       ├── availability.spec.ts        # UI tests for verifying room availability
 │       ├── banner.spec.ts              # UI tests for verifying the website banner
 │       └── header.spec.ts              # UI tests for verifying the website header
 │
 ├── utils/
-│   └── dateUtils.ts                    # Helper functions for dynamic date generation
+│   ├── dateUtils.ts                    # Helper functions for dynamic date generation
+│   ├── csvReader.ts                    # Functions for reading CSV test data
+│   ├── excelReader.ts                  # Functions for reading Excel test data
+│   └── unifiedDataReader.ts            # Reads test data from JSON, CSV, or Excel files
 │
 ├── .gitignore                          # Specifies files/folders Git should not track
 ├── LICENSE                             # Defines how others may use the project's source code
@@ -135,8 +145,8 @@ npx playwright show-report
 
 1. Defects identified during test execution are documented in the **Issues** section of the GitHub repository.
 2. Tests affected by known defects are skipped to prevent CI builds from failing:
-- ```test.fixme()``` is used for individual tests that do not rely on external test data.
-- ```"run": false``` is used in test-data files to disable specific data-driven scenarios affected by known defects.
+- ```test.skip()``` is used for individual tests that do not rely on external test data.
+- ```"run": "no"``` is used in test-data files.
 
 ## ⚙️ Playwright Configuration
 

@@ -1,46 +1,73 @@
-import { test, expect } from '@playwright/test';
-import { HomePage } from '../../pages/HomePage';
+import { test, expect } from '../fixtures/test-fixtures';
 import { addDaysToCurrentDate } from '../../utils/dateUtils';
-import bookingDates from '../../test-data/json/bookingDates.json';
-import bookingInvalidInputs from '../../test-data/json/bookingInvalidInputs.json';
+import { readData } from '../../utils/unifiedDataReader';
 
-test("Verify room availability using default 'Check In' and 'Check Out' dates", async ({ page }) => {
-    const homePage = new HomePage(page);
-    await homePage.navigateToHomePage();
-    await homePage.checkAvailabilityButton.click();
-    await expect(homePage.bookNowFirstRoomButton).toBeVisible();
-});
+const bookingDates = readData("test-data/bookingDates.json");
+const bookingInvalidInputs = readData("test-data/bookingInvalidInputs.json");
 
-bookingDates.forEach((data) => {
-    if (!data.run) return;
+test.describe("Room availability functionality", () => {
 
-    test(`Verify room availability with ${data.name}`, async ({ page }) => {
-        const homePage = new HomePage(page);
-        await homePage.navigateToHomePage();
+    test("Default 'Check In' and 'Check Out' dates", async ({ homePage }) => {
 
-        await homePage.checkInInput.fill(addDaysToCurrentDate(data.checkInDaysFromToday));
-        await homePage.checkOutInput.fill(addDaysToCurrentDate(data.checkOutDaysFromToday));
-        await homePage.checkAvailabilityButton.click();
+        await test.step("Click the [Check Availability] button", async () => {
+            await homePage.checkAvailabilityButton.click();
+        });
 
-        if (data.expected === "visible") {
+        await test.step("Verify if the rooms are displayed", async () => {
             await expect(homePage.bookNowFirstRoomButton).toBeVisible();
-        } else {
-            await expect(homePage.bookNowFirstRoomButton).not.toBeVisible();
-        }
-
+        });
     });
-});
 
-bookingInvalidInputs.forEach((data) => {
-    if (!data.run) return;
+    for (const data of bookingDates) {
 
-    test(`Verify room availability with ${data.name}`, async ({ page }) => {
-        const homePage = new HomePage(page);
-        await homePage.navigateToHomePage();
-        await homePage.checkInInput.fill(data.input);
-        await homePage.checkOutInput.fill(data.input);
-        await homePage.checkAvailabilityButton.click();
-        await expect(homePage.bookNowFirstRoomButton).toBeVisible();
-    });
-});
+        test(`${data.name} dates`, async ({ homePage }) => {
 
+            test.skip(data.run !== "yes");
+
+            await test.step("Fill in the 'Check In' field", async () => {
+                await homePage.checkInInput.fill(addDaysToCurrentDate(data.checkInDaysFromToday));
+            });
+
+            await test.step("Fill in the 'Check Out' field", async () => {
+                await homePage.checkOutInput.fill(addDaysToCurrentDate(data.checkOutDaysFromToday));
+            });
+
+            await test.step("Click the [Check Availability] button", async () => {
+                await homePage.checkAvailabilityButton.click();
+            });
+
+            await test.step("Verify if the rooms are displayed", async () => {
+                if (data.expected === "visible") {
+                    await expect(homePage.bookNowFirstRoomButton).toBeVisible();
+                } else {
+                    await expect(homePage.bookNowFirstRoomButton).not.toBeVisible();
+                }
+            });
+        });
+    }
+
+    for (const data of bookingInvalidInputs) {
+
+        test(`${data.name} values`, async ({ homePage }) => {
+
+            test.skip(data.run !== "yes");
+
+            await test.step("Fill in the 'Check In' field", async () => {
+                await homePage.checkInInput.fill(data.input);
+            });
+
+            await test.step("Fill in the 'Check Out' field", async () => {
+                await homePage.checkOutInput.fill(data.input);
+            });
+
+            await test.step("Click the [Check Availability] button", async () => {
+                await homePage.checkAvailabilityButton.click();
+            });
+
+            await test.step("Verify if the rooms are displayed", async () => {
+                await expect(homePage.bookNowFirstRoomButton).toBeVisible();
+            });
+
+        });
+    }
+})

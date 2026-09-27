@@ -40,8 +40,4 @@ export class HomePage {
         this.checkAvailabilityButton = page.locator("//button[text()='Check Availability']");
     }
 
-    async navigateToHomePage() {
-        await this.page.goto('/');
-    }
-
 }

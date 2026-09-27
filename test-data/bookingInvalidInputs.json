@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Alphabetic input",
+        "input": "abc",
+        "run": "yes"
+    },
+    {
+        "name": "Special characters",
+        "input": "!@#$",
+        "run": "yes"
+    },
+    {
+        "name": "Numeric-only input",
+        "input": "123456",
+        "run": "yes"
+    },
+    {
+        "name": "Incorrect date format",
+        "input": "2026-10-01",
+        "run": "yes"
+    },
+    {
+        "name": "Invalid calendar date",
+        "input": "31/02/2026",
+        "run": "yes"
+    }
+]

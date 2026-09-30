@@ -1,13 +1,13 @@
 import { test, expect } from '../fixtures/test-fixtures';
-import { addDaysToCurrentDate } from '../../utils/dateUtils';
+import { addDaysToCurrentDate } from '../../utils/testDataUtils';
 import { readData } from '../../utils/unifiedDataReader';
 
-const bookingDates = readData("test-data/bookingDates.json");
-const bookingInvalidInputs = readData("test-data/bookingInvalidInputs.json");
+const dates = readData("test-data/availability/dates.json");
+const invalidInputs = readData("test-data/availability/invalidInputs.json");
 
 test.describe("Room availability functionality", () => {
 
-    test("Default 'Check In' and 'Check Out' dates", async ({ homePage }) => {
+    test('Default "Check In" and "Check Out" dates', async ({ homePage }) => {
 
         await test.step("Click the [Check Availability] button", async () => {
             await homePage.checkAvailabilityButton.click();
@@ -18,18 +18,15 @@ test.describe("Room availability functionality", () => {
         });
     });
 
-    for (const data of bookingDates) {
+    for (const data of dates) {
 
         test(`${data.name} dates`, async ({ homePage }) => {
 
-            test.skip(data.run !== "yes");
+            test.skip(data.run !== "yes", "Blocked by GitHub issue #2");
 
-            await test.step("Fill in the 'Check In' field", async () => {
-                await homePage.checkInInput.fill(addDaysToCurrentDate(data.checkInDaysFromToday));
-            });
-
-            await test.step("Fill in the 'Check Out' field", async () => {
-                await homePage.checkOutInput.fill(addDaysToCurrentDate(data.checkOutDaysFromToday));
+            await test.step("Populate the booking form", async () => {
+                await homePage.populateBookingForm(addDaysToCurrentDate(data.checkInDaysFromToday),
+                    addDaysToCurrentDate(data.checkOutDaysFromToday));
             });
 
             await test.step("Click the [Check Availability] button", async () => {
@@ -46,18 +43,14 @@ test.describe("Room availability functionality", () => {
         });
     }
 
-    for (const data of bookingInvalidInputs) {
+    for (const data of invalidInputs) {
 
         test(`${data.name} values`, async ({ homePage }) => {
 
             test.skip(data.run !== "yes");
 
-            await test.step("Fill in the 'Check In' field", async () => {
-                await homePage.checkInInput.fill(data.input);
-            });
-
-            await test.step("Fill in the 'Check Out' field", async () => {
-                await homePage.checkOutInput.fill(data.input);
+            await test.step("Populate the booking form", async () => {
+                await homePage.populateBookingForm(data.input, data.input);
             });
 
             await test.step("Click the [Check Availability] button", async () => {

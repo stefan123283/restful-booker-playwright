@@ -2,9 +2,9 @@ import { test, expect } from '../fixtures/test-fixtures';
 
 test.describe("Header links functionality", () => {
 
-    test("'Rooms' link", async ({ homePage }) => {
+    test('"Rooms" link', async ({ homePage }) => {
 
-        await test.step("Click the 'Rooms' header link", async () => {
+        await test.step('Click the "Rooms" header link', async () => {
             await homePage.roomsHeaderLink.click();
         });
 
@@ -14,9 +14,9 @@ test.describe("Header links functionality", () => {
 
     });
 
-    test("'Booking' link", async ({ homePage }) => {
+    test('"Booking" link', async ({ homePage }) => {
 
-        await test.step("Click the 'Booking' header link", async () => {
+        await test.step('Click the "Booking" header link', async () => {
             await homePage.bookingHeaderLink.click();
         });
 
@@ -26,9 +26,11 @@ test.describe("Header links functionality", () => {
 
     });
 
-    test.skip("'Amenities' link", async ({ homePage }) => {
+    test('"Amenities" link', async ({ homePage }) => {
 
-        await test.step("Click the 'Amenities' header link", async () => {
+        test.skip(true, "Blocked by GitHub issue #1");
+
+        await test.step('Click the "Amenities" header link', async () => {
             await homePage.amenitiesHeaderLink.click();
         });
 
@@ -38,9 +40,9 @@ test.describe("Header links functionality", () => {
 
     });
 
-    test("'Location' link", async ({ homePage }) => {
+    test('"Location" link', async ({ homePage }) => {
 
-        await test.step("Click the 'Location' header link", async () => {
+        await test.step('Click the "Location" header link', async () => {
             await homePage.locationHeaderLink.click();
         });
 
@@ -50,9 +52,9 @@ test.describe("Header links functionality", () => {
 
     });
 
-    test("'Contact' link", async ({ homePage }) => {
+    test('"Contact" link', async ({ homePage }) => {
 
-        await test.step("Click the 'Contact' header link", async () => {
+        await test.step('Click the "Contact" header link', async () => {
             await homePage.contactHeaderLink.click();
         });
 
@@ -62,22 +64,22 @@ test.describe("Header links functionality", () => {
 
     });
 
-    test("Home link", async ({ page, homePage }) => {
+    test('"Home" link', async ({ homePage }) => {
 
-        await test.step("Click the [Book now] button of the first room", async () => {
-            await homePage.bookNowFirstRoomButton.click();
+        await test.step('Click the "Location" header link', async () => {
+            await homePage.locationHeaderLink.click();
         });
 
-        await test.step("Verify if the booking page is displayed", async () => {
-            await expect(page).toHaveURL(/\/reservation\/1/);
+        await test.step("Verify if the location section is displayed in the viewport", async () => {
+            await expect(homePage.locationSection).toBeInViewport();
         });
 
-        await test.step("Click the home header link", async () => {
+        await test.step('Click the "Home" header link', async () => {
             await homePage.homeHeaderLink.click();
         });
 
-        await test.step("Verify if home page is displayed", async () => {
-            await expect(homePage.bookNowBannerButton).toBeVisible();
+        await test.step("Verify if the page reloads", async () => {
+            await expect(homePage.bookNowBannerButton).toBeInViewport();
         });
 
     });

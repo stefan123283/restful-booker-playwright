@@ -1,0 +1,22 @@
+[
+    {
+        "name": "below minimum",
+        "length": 10,
+        "expected": "error"
+    },
+    {
+        "name": "minimum",
+        "length": 11,
+        "expected": "valid"
+    },
+    {
+        "name": "maximum",
+        "length": 21,
+        "expected": "valid"
+    },
+    {
+        "name": "above maximum",
+        "length": 22,
+        "expected": "error"
+    }
+]

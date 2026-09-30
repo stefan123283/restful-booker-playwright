@@ -1,0 +1,22 @@
+[
+    {
+        "field": "Name",
+        "expectedMessage": "Name may not be blank"
+    },
+    {
+        "field": "Email",
+        "expectedMessage": "Email may not be blank"
+    },
+    {
+        "field": "Phone",
+        "expectedMessage": "Phone may not be blank"
+    },
+    {
+        "field": "Subject",
+        "expectedMessage": "Subject may not be blank"
+    },
+    {
+        "field": "Message",
+        "expectedMessage": "Message may not be blank"
+    }
+]

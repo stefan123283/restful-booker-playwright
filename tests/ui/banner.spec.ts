@@ -2,7 +2,7 @@ import { test, expect } from '../fixtures/test-fixtures';
 
 test("Verify functionality of [Book Now] banner button", async ({ homePage }) => {
 
-    await test.step("Click the [Book Now] button", async () => {
+    await test.step("Click the [Book Now] banner button", async () => {
         await homePage.bookNowBannerButton.click();
     });
 

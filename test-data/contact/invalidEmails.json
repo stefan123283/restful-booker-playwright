@@ -1,0 +1,14 @@
+[
+    {
+        "missingPart": "@ symbol",
+        "value": "john.example.com"
+    },
+    {
+        "missingPart": "domain",
+        "value": "john@"
+    },
+    {
+        "missingPart": "local part",
+        "value": "@example.com"
+    }
+]

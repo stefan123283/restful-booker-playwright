@@ -24,6 +24,8 @@ This framework implements industry-standard patterns and best practices:
 | Runtime Environment    | Node.js    |  24.21.0 |
 | CSV Data Parsing       | csv-parse  |  7.0.3   |
 | Excel Data Processing  | xlsx       |  0.18.5  |
+| Date Handling          | date-fns   |  4.4.0   |
+| Test Data Generation   | faker-js   |  10.6.0  |
 
 ## 🧪 Test Coverage Summary
 
@@ -31,6 +33,8 @@ This framework implements industry-standard patterns and best practices:
 - **Header**: Navigation functionality for all six header links.
 - **Banner**: Functionality of the [Book Now] button from the banner.
 - **Rooms Availability**: Validation of check-in and check-out dates, default date values, valid and invalid date inputs, date combinations, and room availability based on the selected dates.
+- **Contact Form**: Validation of contact form submission with missing required fields, invalid email addresses, and boundary values for input field lengths.
+- **Footer**: Navigation functionality for all four footer links.
 
 ## 📁 Project Structure
 
@@ -39,37 +43,50 @@ restful-booker-playwright/
 │
 ├── .github/
 │   └── workflows/
-│       └── playwright.yml              # GitHub Actions workflow for automated test execution
+│       └── playwright.yml                  # GitHub Actions workflow for automated test execution
+│
+├── models/
+│   └── user.ts                             # User test data model
 │
 ├── pages/
-│   └── HomePage.ts                     # Page Object containing Home Page locators and interactions
+│   └── HomePage.ts                         # Page Object containing Home Page locators and interactions
 │
 ├── test-data/
-│   ├── bookingDates.json               # Test data for verifying room availability scenarios
-│   └── bookingInvalidInputs.json       # Test data for verifying invalid room availability scenarios
+│   ├── availability/
+│   │   ├── dates.json                      # Test data for room availability date scenarios
+│   │   └── invalidinputs.json              # Test data for invalid room availability inputs
+│   │
+│   └── contact/
+│       ├── invalidEmails.json              # Test data for invalid email scenarios
+│       ├── messageLengths.json             # Test data for message length boundary scenarios
+│       ├── phoneLengths.json               # Test data for phone number length boundary scenarios
+│       ├── requiredFields.json             # Test data for required field validation scenarios
+│       └── subjectLengths.json             # Test data for subject length boundary scenarios
 │
 ├── tests/
 │   ├── fixtures/
-│   │   └── test-fixtures.ts            # Custom Playwright fixtures for common test setup
+│   │   └── test-fixtures.ts                # Custom Playwright fixtures for common test setup
 │   │
 │   └── ui/
-│       ├── availability.spec.ts        # UI tests for verifying room availability
-│       ├── banner.spec.ts              # UI tests for verifying the website banner
-│       └── header.spec.ts              # UI tests for verifying the website header
+│       ├── availability.spec.ts             # UI tests for verifying room availability
+│       ├── banner.spec.ts                   # UI tests for verifying the website banner
+│       ├── contact.spec.ts                  # UI tests for verifying the contact form
+│       ├── footer.spec.ts                   # UI tests for verifying the website footer
+│       └── header.spec.ts                   # UI tests for verifying the website header
 │
 ├── utils/
-│   ├── dateUtils.ts                    # Helper functions for dynamic date generation
-│   ├── csvReader.ts                    # Functions for reading CSV test data
-│   ├── excelReader.ts                  # Functions for reading Excel test data
-│   └── unifiedDataReader.ts            # Reads test data from JSON, CSV, or Excel files
+│   ├── csvReader.ts                         # Functions for reading CSV test data
+│   ├── excelReader.ts                       # Functions for reading Excel test data
+│   ├── testDataUtils.ts                     # Utility functions for test data generation
+│   └── unifiedDataReader.ts                 # Reads test data from JSON, CSV, or Excel files
 │
-├── .gitignore                          # Specifies files/folders Git should not track
-├── LICENSE                             # Defines how others may use the project's source code
-├── package-lock.json                   # Locks the exact versions of installed npm dependencies
-├── package.json                        # Project metadata, dependencies, and npm scripts
-├── playwright.config.ts                # Playwright test configuration
-├── README.md                           # Project documentation
-└── tsconfig.json                       # TypeScript compiler configuration
+├── .gitignore                               # Specifies files/folders Git should not track
+├── LICENSE                                  # Defines how others may use the project's source code
+├── package-lock.json                        # Locks the exact versions of installed npm dependencies
+├── package.json                             # Project metadata, dependencies, and npm scripts
+├── playwright.config.ts                    # Playwright test configuration
+├── README.md                                # Project documentation
+└── tsconfig.json                            # TypeScript compiler configuration
 ```
 
 ## 🚀 Getting Started

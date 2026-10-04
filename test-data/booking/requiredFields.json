@@ -1,0 +1,18 @@
+[
+    {
+        "field": "First name",
+        "expectedMessage": "Firstname should not be blank"
+    },
+    {
+        "field": "Last name",
+        "expectedMessage": "Lastname should not be blank"
+    },
+    {
+        "field": "Email",
+        "expectedMessage": "must not be empty"
+    },
+    {
+        "field": "Phone",
+        "expectedMessage": "must not be empty"
+    }
+]

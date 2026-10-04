@@ -7,7 +7,7 @@ interface User {
     phoneNumber: string;
 }
 
-export function createRandomUser(): User {
+function createRandomUser(): User {
     const firstName = faker.person.firstName();
     const lastName = faker.person.lastName();
     const email = faker.internet.email({ firstName, lastName });
@@ -20,3 +20,5 @@ export function createRandomUser(): User {
         phoneNumber,
     };
 }
+
+export const user = createRandomUser();

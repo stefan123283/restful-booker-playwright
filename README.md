@@ -33,6 +33,7 @@ This framework implements industry-standard patterns and best practices:
 - **Header**: Navigation functionality for all six header links.
 - **Banner**: Functionality of the [Book Now] button from the banner.
 - **Rooms Availability**: Validation of check-in and check-out dates, default date values, valid and invalid date inputs, date combinations, and room availability based on the selected dates.
+- **Rooms Booking**: Validation of room details, successful booking flow, booking creation with empty required fields, input field length and email format validation, booking cancellation, breadcrumbs links, and functionality of the [View Details] button.
 - **Contact Form**: Validation of contact form submission with missing required fields, invalid email addresses, and boundary values for input field lengths.
 - **Footer**: Navigation functionality for all four footer links.
 
@@ -40,53 +41,64 @@ This framework implements industry-standard patterns and best practices:
 
 ```
 restful-booker-playwright/
+
 │
 ├── .github/
 │   └── workflows/
-│       └── playwright.yml                  # GitHub Actions workflow for automated test execution
+│       └── playwright.yml                    # GitHub Actions workflow for automated test execution
 │
 ├── models/
-│   └── user.ts                             # User test data model
+│   └── user.ts                               # User test data model
 │
 ├── pages/
-│   └── HomePage.ts                         # Page Object containing Home Page locators and interactions
+│   ├── BasePage.ts                           # Base Page Object containing common page functionality
+│   ├── BookingPage.ts                        # Page Object containing Booking Page locators and interactions
+│   └── HomePage.ts                           # Page Object containing Home Page locators and interactions
 │
 ├── test-data/
 │   ├── availability/
-│   │   ├── dates.json                      # Test data for room availability date scenarios
-│   │   └── invalidinputs.json              # Test data for invalid room availability inputs
+│   │   ├── dates.json                        # Test data for room availability date scenarios
+│   │   └── invalidinputs.json                # Test data for invalid room availability inputs
+│   │
+│   ├── booking/
+│   │   ├── firstNameLengths.json             # Test data for first name length boundary scenarios
+│   │   ├── lastNameLengths.json              # Test data for last name length boundary scenarios
+│   │   └── requiredFields.json               # Test data for required booking field validation scenarios
+│   │
+│   ├── common/
+│   │   ├── invalidEmails.json                # Test data for invalid email scenarios
+│   │   └── phoneLengths.json                 # Test data for phone number length boundary scenarios
 │   │
 │   └── contact/
-│       ├── invalidEmails.json              # Test data for invalid email scenarios
-│       ├── messageLengths.json             # Test data for message length boundary scenarios
-│       ├── phoneLengths.json               # Test data for phone number length boundary scenarios
-│       ├── requiredFields.json             # Test data for required field validation scenarios
-│       └── subjectLengths.json             # Test data for subject length boundary scenarios
+│       ├── messageLengths.json               # Test data for message length boundary scenarios
+│       ├── requiredFields.json               # Test data for required contact field validation scenarios
+│       └── subjectLengths.json               # Test data for subject length boundary scenarios
 │
 ├── tests/
 │   ├── fixtures/
-│   │   └── test-fixtures.ts                # Custom Playwright fixtures for common test setup
+│   │   └── test-fixtures.ts                  # Custom Playwright fixtures for common test setup
 │   │
 │   └── ui/
-│       ├── availability.spec.ts             # UI tests for verifying room availability
-│       ├── banner.spec.ts                   # UI tests for verifying the website banner
-│       ├── contact.spec.ts                  # UI tests for verifying the contact form
-│       ├── footer.spec.ts                   # UI tests for verifying the website footer
-│       └── header.spec.ts                   # UI tests for verifying the website header
+│       ├── availability.spec.ts              # UI tests for verifying room availability
+│       ├── banner.spec.ts                    # UI tests for verifying the website banner
+│       ├── booking.spec.ts                   # UI tests for verifying the room booking functionality
+│       ├── contact.spec.ts                   # UI tests for verifying the contact form
+│       ├── footer.spec.ts                    # UI tests for verifying the website footer
+│       └── header.spec.ts                    # UI tests for verifying the website header
 │
 ├── utils/
-│   ├── csvReader.ts                         # Functions for reading CSV test data
-│   ├── excelReader.ts                       # Functions for reading Excel test data
-│   ├── testDataUtils.ts                     # Utility functions for test data generation
-│   └── unifiedDataReader.ts                 # Reads test data from JSON, CSV, or Excel files
+│   ├── csvReader.ts                          # Functions for reading CSV test data
+│   ├── excelReader.ts                        # Functions for reading Excel test data
+│   ├── testDataUtils.ts                      # Utility functions for test data generation
+│   └── unifiedDataReader.ts                  # Reads test data from JSON, CSV, or Excel files
 │
-├── .gitignore                               # Specifies files/folders Git should not track
-├── LICENSE                                  # Defines how others may use the project's source code
-├── package-lock.json                        # Locks the exact versions of installed npm dependencies
-├── package.json                             # Project metadata, dependencies, and npm scripts
-├── playwright.config.ts                    # Playwright test configuration
-├── README.md                                # Project documentation
-└── tsconfig.json                            # TypeScript compiler configuration
+├── .gitignore                                # Specifies files/folders Git should not track
+├── LICENSE                                   # Defines how others may use the project's source code
+├── package-lock.json                         # Locks the exact versions of installed npm dependencies
+├── package.json                              # Project metadata, dependencies, and npm scripts
+├── playwright.config.ts                      # Playwright test configuration
+├── README.md                                 # Project documentation
+└── tsconfig.json                             # TypeScript compiler configuration
 ```
 
 ## 🚀 Getting Started

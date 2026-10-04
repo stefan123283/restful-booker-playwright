@@ -1,5 +1,5 @@
 import { test, expect } from '../fixtures/test-fixtures';
-import { addDaysToCurrentDate } from '../../utils/testDataUtils';
+import { getCurrentDate, addDaysToDate, formatDate } from '../../utils/testDataUtils';
 import { readData } from '../../utils/unifiedDataReader';
 
 const dates = readData("test-data/availability/dates.json");
@@ -24,9 +24,11 @@ test.describe("Room availability functionality", () => {
 
             test.skip(data.run !== "yes", "Blocked by GitHub issue #2");
 
-            await test.step("Populate the booking form", async () => {
-                await homePage.populateBookingForm(addDaysToCurrentDate(data.checkInDaysFromToday),
-                    addDaysToCurrentDate(data.checkOutDaysFromToday));
+            const currentDate = getCurrentDate();
+
+            await test.step('Populate the "Check In" and "Check Out" fields', async () => {
+                await homePage.populateBookingForm(formatDate(addDaysToDate(currentDate, data.checkInDaysFromToday)),
+                    formatDate(addDaysToDate(currentDate, data.checkOutDaysFromToday)));
             });
 
             await test.step("Click the [Check Availability] button", async () => {
@@ -49,7 +51,7 @@ test.describe("Room availability functionality", () => {
 
             test.skip(data.run !== "yes");
 
-            await test.step("Populate the booking form", async () => {
+            await test.step('Populate the "Check In" and "Check Out" fields', async () => {
                 await homePage.populateBookingForm(data.input, data.input);
             });
 

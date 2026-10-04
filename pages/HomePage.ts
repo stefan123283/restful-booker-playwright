@@ -1,18 +1,9 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class HomePage {
+export class HomePage extends BasePage {
 
     readonly page: Page;
-    readonly homeHeaderLink: Locator;
-    readonly roomsHeaderLink: Locator;
-    readonly bookingHeaderLink: Locator;
-    readonly amenitiesHeaderLink: Locator;
-    readonly locationHeaderLink: Locator;
-    readonly contactHeaderLink: Locator;
-    readonly homeFooterLink: Locator;
-    readonly roomsFooterLink: Locator;
-    readonly bookingFooterLink: Locator;
-    readonly contactFooterLink: Locator;
     readonly roomsSection: Locator;
     readonly bookingSection: Locator;
     readonly amenitiesSection: Locator;
@@ -20,6 +11,8 @@ export class HomePage {
     readonly contactSection: Locator;
     readonly bookNowBannerButton: Locator;
     readonly bookNowFirstRoomButton: Locator;
+    readonly bookNowSecondRoomButton: Locator;
+    readonly bookNowThirdRoomButton: Locator;
     readonly checkInInput: Locator;
     readonly checkOutInput: Locator;
     readonly checkAvailabilityButton: Locator;
@@ -30,38 +23,29 @@ export class HomePage {
     readonly contactFormMessageInput: Locator;
     readonly contactFormSubmitButton: Locator;
     readonly contactFormSuccessMessage: Locator;
-    readonly contactFormAlertMessage: Locator;
 
     constructor(page: Page) {
+        super(page);
         this.page = page;
-        this.homeHeaderLink = page.locator("//a[.='Shady Meadows B&B']");
-        this.roomsHeaderLink = page.locator("(//a[text()='Rooms'])[1]");
-        this.bookingHeaderLink = page.locator("(//a[text()='Booking'])[1]");
-        this.amenitiesHeaderLink = page.locator("(//a[text()='Amenities'])[1]");
-        this.locationHeaderLink = page.locator("(//a[text()='Location'])[1]");
-        this.contactHeaderLink = page.locator("(//a[text()='Contact'])[1]");
-        this.homeFooterLink = page.locator("//a[.='Home']");
-        this.roomsFooterLink = page.locator("(//a[text()='Rooms'])[2]");
-        this.bookingFooterLink = page.locator("(//a[text()='Booking'])[2]");
-        this.contactFooterLink = page.locator("(//a[text()='Contact'])[2]");
-        this.roomsSection = page.locator("#rooms");
-        this.bookingSection = page.locator("#booking");
-        this.amenitiesSection = page.locator("#amenities");
-        this.locationSection = page.locator("#location");
-        this.contactSection = page.locator("#contact");
-        this.bookNowBannerButton = page.locator("//a[text()='Book Now']");
-        this.bookNowFirstRoomButton = page.locator("(//a[text()='Book now'])[1]");
-        this.checkInInput = page.locator("//label[text()='Check In']//..//input");
-        this.checkOutInput = page.locator("//label[text()='Check Out']//..//input");
-        this.checkAvailabilityButton = page.locator("//button[text()='Check Availability']");
-        this.contactFormNameInput = page.locator("#name");
-        this.contactFormEmailInput = page.locator("#email");
-        this.contactFormPhoneInput = page.locator("#phone");
-        this.contactFormSubjectInput = page.locator("#subject");
-        this.contactFormMessageInput = page.locator("#description");
-        this.contactFormSubmitButton = page.locator("//button[text()='Submit']");
-        this.contactFormSuccessMessage = page.locator("//h3[contains(text(), 'Thanks for getting in touch')]");
-        this.contactFormAlertMessage = page.locator(".alert");
+        this.roomsSection = this.page.locator("#rooms");
+        this.bookingSection = this.page.locator("#booking");
+        this.amenitiesSection = this.page.locator("#amenities");
+        this.locationSection = this.page.locator("#location");
+        this.contactSection = this.page.locator("#contact");
+        this.bookNowBannerButton = this.page.locator("//a[text()='Book Now']");
+        this.bookNowFirstRoomButton = this.page.locator("(//a[text()='Book now'])[1]");
+        this.bookNowSecondRoomButton = this.page.locator("(//a[text()='Book now'])[2]");
+        this.bookNowThirdRoomButton = this.page.locator("(//a[text()='Book now'])[3]");
+        this.checkInInput = this.page.locator("//label[text()='Check In']//..//input");
+        this.checkOutInput = this.page.locator("//label[text()='Check Out']//..//input");
+        this.checkAvailabilityButton = this.page.locator("//button[text()='Check Availability']");
+        this.contactFormNameInput = this.page.locator("#name");
+        this.contactFormEmailInput = this.page.locator("#email");
+        this.contactFormPhoneInput = this.page.locator("#phone");
+        this.contactFormSubjectInput = this.page.locator("#subject");
+        this.contactFormMessageInput = this.page.locator("#description");
+        this.contactFormSubmitButton = this.page.locator("//button[text()='Submit']");
+        this.contactFormSuccessMessage = this.page.locator("//h3[contains(text(), 'Thanks for getting in touch')]");
     }
 
     async populateBookingForm(checkInDate: string, checkOutDate: string,) {

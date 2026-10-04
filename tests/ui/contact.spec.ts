@@ -1,12 +1,12 @@
 import { test, expect } from '../fixtures/test-fixtures';
 import { readData } from '../../utils/unifiedDataReader';
-import { createRandomUser } from '../../models/user';
+import { user } from '../../models/user';
 import { generateRandomAlphanumericString } from '../../utils/testDataUtils';
 
 const requiredFields = readData("test-data/contact/requiredFields.json");
-const invalidEmails = readData("test-data/contact/invalidEmails.json");
+const invalidEmails = readData("test-data/common/invalidEmails.json");
 const subjectLengths = readData("test-data/contact/subjectLengths.json");
-const phoneLengths = readData("test-data/contact/phoneLengths.json");
+const phoneLengths = readData("test-data/common/phoneLengths.json");
 const messageLengths = readData("test-data/contact/messageLengths.json");
 
 test.describe("Contact form functionality", () => {
@@ -14,7 +14,6 @@ test.describe("Contact form functionality", () => {
     test("Successful submission", async ({ homePage }) => {
 
         await test.step("Populate the contact form", async () => {
-            const user = createRandomUser();
             await homePage.populateContactForm(user.firstName + " " + user.lastName,
                 user.email,
                 user.phoneNumber,
@@ -38,7 +37,7 @@ test.describe("Contact form functionality", () => {
         test(`Submission with blank "${data.field}" field`, async ({ homePage }) => {
 
             await test.step("Populate the contact form", async () => {
-                const user = createRandomUser();
+               
                 await homePage.populateContactForm(user.firstName + " " + user.lastName,
                     user.email,
                     user.phoneNumber,
@@ -67,7 +66,7 @@ test.describe("Contact form functionality", () => {
             });
 
             await test.step(`Verify if the "${data.expectedMessage}" error message is displayed`, async () => {
-                await expect(homePage.contactFormAlertMessage).toContainText(`${data.expectedMessage}`);
+                await expect(homePage.alertMessage).toContainText(`${data.expectedMessage}`);
             });
 
         });
@@ -79,7 +78,6 @@ test.describe("Contact form functionality", () => {
         test(`Submission of the "Email" field with "${data.missingPart}"`, async ({ homePage }) => {
 
             await test.step("Populate the contact form", async () => {
-                const user = createRandomUser();
                 await homePage.populateContactForm(user.firstName + " " + user.lastName,
                     data.value,
                     user.phoneNumber,
@@ -93,7 +91,7 @@ test.describe("Contact form functionality", () => {
             });
 
             await test.step('Verify if the "must be a well-formed email address" error message is displayed', async () => {
-                await expect(homePage.contactFormAlertMessage).toContainText("must be a well-formed email address");
+                await expect(homePage.alertMessage).toContainText("must be a well-formed email address");
             });
 
         });
@@ -105,7 +103,6 @@ test.describe("Contact form functionality", () => {
         test(`Submission of the "Subject" field with "${data.name}" length`, async ({ homePage }) => {
 
             await test.step("Populate the contact form", async () => {
-                const user = createRandomUser();
                 await homePage.populateContactForm(user.firstName + " " + user.lastName,
                     user.email,
                     user.phoneNumber,
@@ -122,7 +119,7 @@ test.describe("Contact form functionality", () => {
                 if (data.expected === "valid") {
                     await expect(homePage.contactFormSuccessMessage).toBeVisible();
                 } else {
-                    await expect(homePage.contactFormAlertMessage).toContainText("Subject must be between 5 and 100 characters.");
+                    await expect(homePage.alertMessage).toContainText("Subject must be between 5 and 100 characters.");
                 }
 
             });
@@ -136,7 +133,6 @@ test.describe("Contact form functionality", () => {
         test(`Submission of the "Phone" field with "${data.name}" length`, async ({ homePage }) => {
 
             await test.step("Populate the contact form", async () => {
-                const user = createRandomUser();
                 await homePage.populateContactForm(user.firstName + " " + user.lastName,
                     user.email,
                     generateRandomAlphanumericString(data.length),
@@ -153,7 +149,7 @@ test.describe("Contact form functionality", () => {
                 if (data.expected === "valid") {
                     await expect(homePage.contactFormSuccessMessage).toBeVisible();
                 } else {
-                    await expect(homePage.contactFormAlertMessage).toContainText("Phone must be between 11 and 21 characters.");
+                    await expect(homePage.alertMessage).toContainText("Phone must be between 11 and 21 characters.");
                 }
 
             });
@@ -167,7 +163,6 @@ test.describe("Contact form functionality", () => {
         test(`Submission of the "Message" field with "${data.name}" length`, async ({ homePage }) => {
 
             await test.step("Populate the contact form", async () => {
-                const user = createRandomUser();
                 await homePage.populateContactForm(user.firstName + " " + user.lastName,
                     user.email,
                     user.phoneNumber,
@@ -184,7 +179,7 @@ test.describe("Contact form functionality", () => {
                 if (data.expected === "valid") {
                     await expect(homePage.contactFormSuccessMessage).toBeVisible();
                 } else {
-                    await expect(homePage.contactFormAlertMessage).toContainText("Message must be between 20 and 2000 characters.");
+                    await expect(homePage.alertMessage).toContainText("Message must be between 20 and 2000 characters.");
                 }
 
             });

@@ -1,0 +1,26 @@
+[
+    {
+        "name": "firstname",
+        "run": "yes"
+    },
+    {
+        "name": "lastname",
+        "run": "yes"
+    },
+    {
+        "name": "firstname and lastname",
+        "run": "yes"
+    },
+    {
+        "name": "checkin",
+        "run": "no"
+    },
+    {
+        "name": "checkout",
+        "run": "yes"
+    },
+    {
+        "name": "checkin and checkout",
+        "run": "no"
+    }
+]

@@ -9,7 +9,6 @@ export default defineConfig({
     reporter: [["html"], ["junit", { outputFile: "test-results/results.xml" }]],
 
     use: {
-        baseURL: "https://automationintesting.online",
         trace: "on-first-retry",
     },
 

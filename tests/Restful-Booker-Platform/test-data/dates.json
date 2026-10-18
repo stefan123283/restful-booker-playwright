@@ -19,12 +19,5 @@
         "checkOutDaysFromToday": 5,
         "expected": "invisible",
         "run": "no"
-    },
-    {
-        "name": "'Check In' before today",
-        "checkInDaysFromToday": -5,
-        "checkOutDaysFromToday": 2,
-        "expected": "invisible",
-        "run": "no"
     }
 ]

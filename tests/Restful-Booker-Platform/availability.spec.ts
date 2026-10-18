@@ -1,11 +1,11 @@
-import { test, expect } from '../fixtures/test-fixtures';
+import { test, expect } from '../fixtures/restfulBookerPlatformFixtures';
 import { getCurrentDate, addDaysToDate, formatDate } from '../../utils/testDataUtils';
 import { readData } from '../../utils/unifiedDataReader';
 
-const dates = readData("test-data/availability/dates.json");
-const invalidInputs = readData("test-data/availability/invalidInputs.json");
+const dates = readData("tests/Restful-Booker-Platform/test-data/dates.json");
+const invalidInputs = readData("tests/Restful-Booker-Platform/test-data/invalidInputs.json");
 
-test.describe("Room availability functionality", () => {
+test.describe("UI - Room availability functionality", () => {
 
     test('Default "Check In" and "Check Out" dates', async ({ homePage }) => {
 
@@ -27,8 +27,8 @@ test.describe("Room availability functionality", () => {
             const currentDate = getCurrentDate();
 
             await test.step('Populate the "Check In" and "Check Out" fields', async () => {
-                await homePage.populateBookingForm(formatDate(addDaysToDate(currentDate, data.checkInDaysFromToday)),
-                    formatDate(addDaysToDate(currentDate, data.checkOutDaysFromToday)));
+                await homePage.populateBookingForm(formatDate(addDaysToDate(currentDate, data.checkInDaysFromToday), "dd/MM/yyyy"),
+                    formatDate(addDaysToDate(currentDate, data.checkOutDaysFromToday), "dd/MM/yyyy"));
             });
 
             await test.step("Click the [Check Availability] button", async () => {

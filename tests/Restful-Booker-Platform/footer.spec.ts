@@ -1,6 +1,6 @@
-import { test, expect } from '../fixtures/test-fixtures';
+import { test, expect } from '../fixtures/restfulBookerPlatformFixtures';
 
-test.describe("Footer links functionality", () => {
+test.describe("UI - Footer links functionality", () => {
 
     test('"Home" link', async ({ homePage }) => {
 

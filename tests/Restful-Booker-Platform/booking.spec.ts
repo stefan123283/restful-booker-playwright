@@ -1,18 +1,18 @@
-import { test, expect } from '../fixtures/test-fixtures';
+import { test, expect } from '../fixtures/restfulBookerPlatformFixtures';
 import { BookingPage } from '../../pages/BookingPage';
 import { readData } from '../../utils/unifiedDataReader';
 import { user } from '../../models/user';
 import { generateRandomFutureDate, addDaysToDate, formatDate, generateRandomAlphanumericString } from '../../utils/testDataUtils';
 
-const requiredFields = readData("test-data/booking/requiredFields.json");
-const firstNameLengths = readData("test-data/booking/firstNameLengths.json");
-const lastNameLengths = readData("test-data/booking/lastNameLengths.json");
-const phoneLengths = readData("test-data/common/phoneLengths.json");
-const invalidEmails = readData("test-data/common/invalidEmails.json");
+const requiredFieldsBookingForm = readData("tests/Restful-Booker-Platform/test-data/requiredFieldsBookingForm.json");
+const firstNameLengths = readData("tests/Restful-Booker-Platform/test-data/firstNameLengths.json");
+const lastNameLengths = readData("tests/Restful-Booker-Platform/test-data/lastNameLengths.json");
+const phoneLengths = readData("tests/Restful-Booker-Platform/test-data/phoneLengths.json");
+const invalidEmails = readData("tests/Restful-Booker-Platform/test-data/invalidEmails.json");
 
 let bookingPage: BookingPage;
 
-test.describe("Room booking functionality", () => {
+test.describe("UI - Room booking functionality", () => {
 
     test.beforeEach(async ({ page }) => {
         bookingPage = new BookingPage(page);
@@ -59,7 +59,8 @@ test.describe("Room booking functionality", () => {
         const futureDate = generateRandomFutureDate(5);
 
         await test.step('Populate the "Check In" and "Check Out" fields', async () => {
-            await homePage.populateBookingForm(formatDate(addDaysToDate(futureDate, -2)), formatDate(futureDate));
+            await homePage.populateBookingForm(formatDate(addDaysToDate(futureDate, -2), "dd/MM/yyyy"),
+                formatDate(futureDate, "dd/MM/yyyy"));
         });
 
         await test.step("Click the [Check Availability] button", async () => {
@@ -74,7 +75,7 @@ test.describe("Room booking functionality", () => {
             await bookingPage.reserveNowButton.click();
         });
 
-        await test.step('Populate the "Check In" and "Check Out" fields', async () => {
+        await test.step('Populate the booking form', async () => {
             await bookingPage.populateBookingForm(user.firstName, user.lastName, user.email, user.phoneNumber);
         });
 
@@ -96,7 +97,7 @@ test.describe("Room booking functionality", () => {
 
     });
 
-    for (const data of requiredFields) {
+    for (const data of requiredFieldsBookingForm) {
 
         test(`Booking creation with blank "${data.field}" field`, async ({ homePage }) => {
 
@@ -108,7 +109,7 @@ test.describe("Room booking functionality", () => {
                 await bookingPage.reserveNowButton.click();
             });
 
-            await test.step('Populate the "Check In" and "Check Out" fields', async () => {
+            await test.step('Populate the booking form', async () => {
                 await bookingPage.populateBookingForm(user.firstName, user.lastName, user.email, user.phoneNumber);
             });
 
@@ -149,7 +150,7 @@ test.describe("Room booking functionality", () => {
                 await bookingPage.reserveNowButton.click();
             });
 
-            await test.step('Populate the "Check In" and "Check Out" fields', async () => {
+            await test.step('Populate the booking form', async () => {
                 await bookingPage.populateBookingForm(generateRandomAlphanumericString(data.length), user.lastName, "", user.phoneNumber);
             });
 
@@ -182,7 +183,7 @@ test.describe("Room booking functionality", () => {
                 await bookingPage.reserveNowButton.click();
             });
 
-            await test.step('Populate the "Check In" and "Check Out" fields', async () => {
+            await test.step('Populate the booking form', async () => {
                 await bookingPage.populateBookingForm(user.firstName, generateRandomAlphanumericString(data.length), "", user.phoneNumber);
             });
 
@@ -215,7 +216,7 @@ test.describe("Room booking functionality", () => {
                 await bookingPage.reserveNowButton.click();
             });
 
-            await test.step('Populate the "Check In" and "Check Out" fields', async () => {
+            await test.step('Populate the booking form', async () => {
                 await bookingPage.populateBookingForm(user.firstName, user.lastName, "", generateRandomAlphanumericString(data.length));
             });
 
@@ -248,7 +249,7 @@ test.describe("Room booking functionality", () => {
                 await bookingPage.reserveNowButton.click();
             });
 
-            await test.step('Populate the "Check In" and "Check Out" fields', async () => {
+            await test.step('Populate the booking form', async () => {
                 await bookingPage.populateBookingForm(user.firstName, user.lastName, data.value, user.phoneNumber);
             });
 

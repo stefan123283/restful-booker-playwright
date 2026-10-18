@@ -1,15 +1,15 @@
-import { test, expect } from '../fixtures/test-fixtures';
+import { test, expect } from '../fixtures/restfulBookerPlatformFixtures';
 import { readData } from '../../utils/unifiedDataReader';
 import { user } from '../../models/user';
 import { generateRandomAlphanumericString } from '../../utils/testDataUtils';
 
-const requiredFields = readData("test-data/contact/requiredFields.json");
-const invalidEmails = readData("test-data/common/invalidEmails.json");
-const subjectLengths = readData("test-data/contact/subjectLengths.json");
-const phoneLengths = readData("test-data/common/phoneLengths.json");
-const messageLengths = readData("test-data/contact/messageLengths.json");
+const requiredFieldsContactForm = readData("tests/Restful-Booker-Platform/test-data/requiredFieldsContactForm.json");
+const invalidEmails = readData("tests/Restful-Booker-Platform/test-data/invalidEmails.json");
+const subjectLengths = readData("tests/Restful-Booker-Platform/test-data/subjectLengths.json");
+const phoneLengths = readData("tests/Restful-Booker-Platform/test-data/phoneLengths.json");
+const messageLengths = readData("tests/Restful-Booker-Platform/test-data/messageLengths.json");
 
-test.describe("Contact form functionality", () => {
+test.describe("UI - Contact form functionality", () => {
 
     test("Successful submission", async ({ homePage }) => {
 
@@ -32,12 +32,12 @@ test.describe("Contact form functionality", () => {
 
     });
 
-    for (const data of requiredFields) {
+    for (const data of requiredFieldsContactForm) {
 
         test(`Submission with blank "${data.field}" field`, async ({ homePage }) => {
 
             await test.step("Populate the contact form", async () => {
-               
+
                 await homePage.populateContactForm(user.firstName + " " + user.lastName,
                     user.email,
                     user.phoneNumber,

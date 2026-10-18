@@ -1,5 +1,6 @@
 import { test as base } from '@playwright/test';
 import { HomePage } from '../../pages/HomePage';
+import testConfig from "../../config/test-config.json";
 
 type MyFixtures = {
     homePage: HomePage;
@@ -8,7 +9,7 @@ type MyFixtures = {
 export const test = base.extend<MyFixtures>({
     homePage: async ({ page }, use) => {
         const homePage = new HomePage(page);
-        await page.goto("/");
+        await page.goto(testConfig.RestfulBookerPlatform.baseURL);
         await use(homePage);
     },
 });

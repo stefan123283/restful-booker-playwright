@@ -1,0 +1,9 @@
+{
+    "RestfulBookerPlatform": {
+        "baseURL": "https://automationintesting.online/"
+    },
+    "RestfulBooker": {
+        "baseURL": "https://restful-booker.herokuapp.com/",
+        "authHeader": "Basic YWRtaW46cGFzc3dvcmQxMjM="
+    }
+}

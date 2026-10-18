@@ -1,6 +1,6 @@
-import { test, expect } from '../fixtures/test-fixtures';
+import { test, expect } from '../fixtures/restfulBookerPlatformFixtures';
 
-test("Verify functionality of [Book Now] banner button", async ({ homePage }) => {
+test("UI - Verify functionality of [Book Now] banner button", async ({ homePage }) => {
 
     await test.step("Click the [Book Now] banner button", async () => {
         await homePage.bookNowBannerButton.click();

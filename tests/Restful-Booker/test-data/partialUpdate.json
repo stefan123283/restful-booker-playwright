@@ -1,0 +1,50 @@
+        {
+            "bookingData": [
+                {
+                    "field": "firstname",
+                    "payload": {
+                        "firstname": "Jim"
+                    }
+                },
+                {
+                    "field": "lastname",
+                    "payload": {
+                        "lastname": "Brown"
+                    }
+                },
+                {
+                    "field": "totalprice",
+                    "payload": {
+                        "totalprice": 111
+                    }
+                },
+                {
+                    "field": "depositpaid",
+                    "payload": {
+                        "depositpaid": false
+                    }
+                },
+                {
+                    "field": "checkin",
+                    "payload": {
+                        "bookingdates": {
+                            "checkin": "2018-01-01"
+                        }
+                    }
+                },
+                {
+                    "field": "checkout",
+                    "payload": {
+                        "bookingdates": {
+                            "checkout": "2019-01-01"
+                        }
+                    }
+                },
+                {
+                    "field": "additionalneeds",
+                    "payload": {
+                        "additionalneeds": "Breakfast"
+                    }
+                }
+            ]
+        }

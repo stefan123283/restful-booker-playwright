@@ -13,8 +13,8 @@ export function addDaysToDate(date: Date, daysToAdd: number): Date {
     return addDays(date, daysToAdd);
 }
 
-export function formatDate(date: Date): string {
-    return format(date, 'dd-MM-yyyy');
+export function formatDate(date: Date, dateFormat: string): string {
+    return format(date, dateFormat);
 }
 
 export function generateRandomAlphanumericString(numberOfCharacters: number): string {

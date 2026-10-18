@@ -1,0 +1,88 @@
+    {
+        "bookingData": [
+            {
+                "missingField": "firstname",
+                "payload": {
+                    "lastname": "Brown",
+                    "totalprice": 111,
+                    "depositpaid": true,
+                    "bookingdates": {
+                        "checkin": "2018-01-01",
+                        "checkout": "2019-01-01"
+                    },
+                    "additionalneeds": "Breakfast"
+                },
+                "run": "no"
+            },
+            {
+                "missingField": "lastname",
+                "payload": {
+                    "firstname": "Jim",
+                    "totalprice": 111,
+                    "depositpaid": true,
+                    "bookingdates": {
+                        "checkin": "2018-01-01",
+                        "checkout": "2019-01-01"
+                    },
+                    "additionalneeds": "Breakfast"
+                },
+                "run": "no"
+            },
+            {
+                "missingField": "totalprice",
+                "payload": {
+                    "firstname": "Jim",
+                    "lastname": "Brown",
+                    "depositpaid": true,
+                    "bookingdates": {
+                        "checkin": "2018-01-01",
+                        "checkout": "2019-01-01"
+                    },
+                    "additionalneeds": "Breakfast"
+                },
+                "run": "no"
+            },
+            {
+                "missingField": "depositpaid",
+                "payload": {
+                    "firstname": "Jim",
+                    "lastname": "Brown",
+                    "totalprice": 111,
+                    "bookingdates": {
+                        "checkin": "2018-01-01",
+                        "checkout": "2019-01-01"
+                    },
+                    "additionalneeds": "Breakfast"
+                },
+                "run": "no"
+            },
+            {
+                "missingField": "checkin",
+                "payload": {
+                    "firstname": "Jim",
+                    "lastname": "Brown",
+                    "totalprice": 111,
+                    "depositpaid": true,
+                    "bookingdates": {
+                        "checkout": "2019-01-01"
+                    },
+                    "additionalneeds": "Breakfast"
+                },
+                "run": "no"
+            },
+            {
+                "missingField": "checkout",
+                "payload": {
+                    "firstname": "Jim",
+                    "lastname": "Brown",
+                    "totalprice": 111,
+                    "depositpaid": true,
+                    "bookingdates": {
+                        "checkin": "2018-01-01"
+                    },
+                    "additionalneeds": "Breakfast"
+                },
+                "run": "no"
+            }
+        ]
+    }

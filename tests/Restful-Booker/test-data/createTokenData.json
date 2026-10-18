@@ -1,0 +1,50 @@
+[
+    {
+        "name": "valid credentials",
+        "username": "admin",
+        "password": "password123",
+        "expected": "success"
+    },
+    {
+        "name": "invalid username",
+        "username": "invalid",
+        "password": "password123",
+        "expected": "error"
+    },
+    {
+        "name": "invalid password",
+        "username": "admin",
+        "password": "invalid",
+        "expected": "error"
+    },
+    {
+        "name": "invalid credentials",
+        "username": "invalid",
+        "password": "invalid",
+        "expected": "error"
+    },
+    {
+        "name": "empty username",
+        "username": "",
+        "password": "password123",
+        "expected": "error"
+    },
+    {
+        "name": "empty password",
+        "username": "admin",
+        "password": "",
+        "expected": "error"
+    },
+    {
+        "name": "special characters",
+        "username": "@dmin",
+        "password": "pas$word123",
+        "expected": "error"
+    },
+    {
+        "name": "SQL injection attempt",
+        "username": "valid' OR '1'='1' --",
+        "password": "invalid",
+        "expected": "error"
+    }
+]

@@ -1,0 +1,22 @@
+    [
+        {
+            "name": "slash separators",
+            "date": "2027/09/20",
+            "expected": "success"
+        },
+        {
+            "name": "missing leading zeros",
+            "date": "2027-9-20",
+            "expected": "success"
+        },
+        {
+            "name": "date with time component",
+            "date": "2027-09-20T00:00:00",
+            "expected": "success"
+        },
+        {
+            "name": "textual date format",
+            "date": "September 20, 2027",
+            "expected": "success"
+        }
+    ]
